@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 22px;
+
+  height: 80px;
+
+  background-color: #ffffff;
+}
+
+.btn {
+  display: block;
+  height: 51px;
+  width: 109px;
+
+  border: none;
+
+  background-color: #ffffff;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+
+  &:hover {
+    border: solid 1px #52c41a;
+    border-radius: 5px;
+    color: #52c41a;
+  }
+
+  &:active {
+    border: solid 1px #aad992;
+    border-radius: 5px;
+    color: #aad992;
+  }
+
+  &-block {
+    display: flex;
+    gap: 20px;
+  }
+}
