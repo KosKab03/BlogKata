@@ -16,8 +16,10 @@ function CreateArticlePage({
   },
   author,
 }) {
-  const { status } = useSelector((state) => state.createArticle);
+  const { status, slugArticle } = useSelector((state) => state.createArticle);
   const { slug } = useParams();
+  const slugName = slug || slugArticle;
+
   const dispatch = useDispatch();
   const user = localStorage.getItem('username');
 
@@ -39,8 +41,8 @@ function CreateArticlePage({
   if (status === 'resolved' || (user !== author && author)) {
     setTimeout(() => {
       dispatch(resetCreateArticle());
-    }, 100);
-    return <Navigate to={`/articles/${slug}`} />;
+    }, 1000);
+    return <Navigate to={`/articles/${slugName}`} />;
   }
 
   const onSubmit = (data) => {
@@ -53,6 +55,7 @@ function CreateArticlePage({
     if (author) {
       dispatch(updArticle({ newData, slug }));
     } else {
+      console.log(slug);
       dispatch(postCreateArticle(newData));
     }
   };
