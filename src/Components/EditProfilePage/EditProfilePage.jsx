@@ -1,17 +1,19 @@
-import styles from './RegistrationPage.module.scss';
+import styles from './EditProfilePage.module.scss';
 
-import { postDataOnServer, resetData } from '../../Store/PostUserData';
 import HOCAutorizated from '../HOCs/HOCAutorizated';
+import { updUserData, getUserData } from '../../Store/LogIn';
 
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
-function RegistrationPage({ type }) {
+function EditProfilePage({ type }) {
   const dispatch = useDispatch();
   const [status, setStatus] = useState({});
-  const selectorData = useSelector((state) => state.postUserData);
+  const selectorData = useSelector((state) => state.login.status);
+
+  const email = localStorage.getItem('email');
   const username = localStorage.getItem('username');
   const {
     register,
@@ -20,48 +22,44 @@ function RegistrationPage({ type }) {
     reset,
   } = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      username,
+      email,
+    },
   });
 
   useEffect(() => {
     setStatus(selectorData);
   }, [selectorData]);
 
-  if (username) {
-    return <Navigate to="/" />;
-  }
-
-  if (status.status === 'resolved') {
+  if (!username) {
     return <Navigate to="/sign-in" />;
   }
 
-  const onSubmit = (data) => {
-    dispatch(postDataOnServer(data));
-    dispatch(resetData());
-    reset();
+  const onSubmit = async (data) => {
+    const { password, image } = data;
+    if (password || image) {
+      await dispatch(updUserData(data));
+      await dispatch(getUserData(username));
+      reset();
+    }
   };
 
   return (
     <form className={styles.registration} onSubmit={handleSubmit(onSubmit)}>
       <h2>{type}</h2>
       <HOCAutorizated register={register} errors={errors} pageType={type} />
-      <hr />
-      <div className={styles.agreement}>
-        <input type="checkbox" required />
-        <p>I agree to the processing of my personal information</p>
-      </div>
       {status.error === '422' && (
         <span style={{ color: 'red', fontSize: 12 }}>
           A user with such data is already registered, try to <Link to="/sign-in">Sign In.</Link> or enter other data
         </span>
       )}
+      {status === 'loading' && <span>sending data to server...</span>}
       <button type="submit" className={styles.create}>
-        Create
+        Save
       </button>
-      <div className={styles['have-account']}>
-        Already have an account? <Link to="/sign-in">Sign In.</Link>
-      </div>
     </form>
   );
 }
 
-export default RegistrationPage;
+export default EditProfilePage;

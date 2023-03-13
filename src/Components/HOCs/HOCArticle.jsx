@@ -1,33 +1,60 @@
 import styles from './HOCArticle.module.scss';
 
-import { format } from 'date-fns';
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import HOCCommonBlock from './HOCCommonBlock';
+import { fetchArticle, setLike, deleteLike } from '../../Store/ArticlesSlice';
 
-function HOCArticle(info, oneElem = false) {
-  const { title, description, tagList, favoritesCount, author, updatedAt, slug, body } = info;
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
+
+function HOCArticle(info) {
+  const dispatch = useDispatch();
+  const { title, description, tagList, favoritesCount, author, updatedAt, slug, favorited } = info;
+  const [likeCount, setLikeCount] = useState(favoritesCount);
+  const [like, toggleLike] = useState(favorited);
+  const user = localStorage.getItem('username');
   const date = format(new Date(updatedAt), 'MMM dd, uuuu');
+
   const { username, image } = author;
   const idCheck = uuidv4();
 
   return (
-    <div key={uuidv4()} className={styles.item}>
+    <HOCCommonBlock key={uuidv4()}>
       <div className={styles.header}>
         <ul className={styles.content}>
           <li className={styles['title-likes']}>
-            <Link to={`/articles/${slug}`}>{title}</Link>
-            <input className={styles['custom-checkbox']} type="checkbox" id={idCheck} name="like" value="likes" />
-            <label
-              htmlFor={idCheck}
-              value="likes"
+            <Link
+              to={`/articles/${slug}`}
               onClick={() => {
-                console.log('check');
+                dispatch(fetchArticle);
               }}
-              aria-hidden="true"
             >
-              {favoritesCount}
+              {title}
+            </Link>
+            <input
+              className={styles['custom-checkbox']}
+              disabled={!user}
+              checked={like}
+              type="checkbox"
+              id={idCheck}
+              name="like"
+              value="likes"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  toggleLike(!like);
+                  setLikeCount(likeCount + 1);
+                  dispatch(setLike(slug));
+                } else {
+                  toggleLike(!like);
+                  setLikeCount(likeCount - 1);
+                  dispatch(deleteLike(slug));
+                }
+              }}
+            />
+            <label htmlFor={idCheck} value="likes" disabled={!user} aria-hidden="true">
+              {likeCount}
             </label>
           </li>
           <ul className={styles.tags}>
@@ -36,22 +63,18 @@ function HOCArticle(info, oneElem = false) {
             ))}
           </ul>
           <li className={styles.text}>{description}</li>
-          <li />
         </ul>
-        <ul className={styles['user-info']}>
-          <ul>
-            <li className={styles.nick}>{username}</li>
-            <li className={styles.date}>{date}</li>
+        <ul>
+          <ul className={styles['user-info']}>
+            <ul>
+              <li className={styles.nick}>{username}</li>
+              <li className={styles.date}>{date}</li>
+            </ul>
+            <img className={styles.avatar} src={image} alt="avatar" />
           </ul>
-          <img className={styles.avatar} src={image} alt="avatar" />
         </ul>
       </div>
-      {oneElem && (
-        <div>
-          <ReactMarkdown className={styles['markdown-text']}>{body}</ReactMarkdown>
-        </div>
-      )}
-    </div>
+    </HOCCommonBlock>
   );
 }
 

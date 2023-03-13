@@ -27,11 +27,13 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    indent: ['error', 2],
+    // indent: ['error', 2],
+    indent: ['error', 2, { SwitchCase: 1 }],
     'prettier/prettier': 'error',
     'linebreak-style': [0, 'unix'],
     quotes: ['error', 'single'],
     'import/no-unresolved': [2, { caseSensitive: false }],
+    'default-param-last': 0,
     'import/order': [
       'error',
       {

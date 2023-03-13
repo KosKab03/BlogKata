@@ -1,30 +1,28 @@
 import styles from './ArticleSheetPage.module.scss';
 
-import { fetchArticles } from '../../Store/ArticlesSlice';
 import HOCArticle from '../HOCs/HOCArticle';
 
-import React, { useState } from 'react';
+import { fetchArticles, setPage } from '../../Store/ArticlesSlice';
+
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from 'antd';
 
 function ArticleSheetPage() {
   const dispatch = useDispatch();
-
-  const [current, setCurrent] = useState(1);
-  const { articles, totalPages } = useSelector((state) => state.articles);
+  const { articles, totalPages, page } = useSelector((state) => state.articles);
 
   return (
     <div className={styles['article-page']}>
       <div>{articles.map((item) => HOCArticle(item))}</div>
       <Pagination
         className={styles.pages}
-        current={current}
+        pageSize={1}
+        current={page}
         total={totalPages}
-        defaultPageSize={1}
-        onChange={(page) => {
-          setCurrent(page);
-          dispatch(fetchArticles(page));
-          window.scrollTo(0, 0);
+        onChange={(value) => {
+          dispatch(setPage(value));
+          dispatch(fetchArticles({ page: value }));
         }}
       />
     </div>

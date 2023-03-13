@@ -39,3 +39,49 @@
     gap: 20px;
   }
 }
+
+.login-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  height: 51px;
+
+  & .create-article {
+    display: block;
+    padding: 6px 10px;
+
+    color: #52c41a;
+    background-color: #ffffff;
+
+    border: 1px solid #52c41a;
+    border-radius: 5px;
+  }
+
+  & .log-out {
+    display: block;
+    width: 109px;
+    height: 51px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 49px;
+
+    color: #000000bf;
+    background-color: #ffffff;
+
+    border: 1px solid #000000bf;
+    border-radius: 5px;
+  }
+
+  & .user-info {
+    display: flex;
+    gap: 10px;
+
+    align-items: center;
+  }
+
+  & .avatar {
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+  }
+}
