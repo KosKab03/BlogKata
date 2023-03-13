@@ -1,12 +1,12 @@
 import styles from './ArticlePage.module.scss';
 
 import HOCCommonBlock from '../HOCs/HOCCommonBlock';
-import { fetchArticle, resetArticleView, fetchArticles, setLike, deleteLike } from '../../Store/ArticlesSlice';
+import { fetchArticle, resetArticleView, fetchArticles, setLike, deleteLike, setPage } from '../../Store/ArticlesSlice';
 import { deleteArticle, resetCreateArticle } from '../../Store/CreateArticle';
 
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import { v4 as uuidv4 } from 'uuid';
@@ -37,6 +37,7 @@ function ArticlePage() {
   const [like, toggleLike] = useState();
   const date = format(new Date(updatedAt), 'MMM dd, uuuu');
   const { username, image } = author;
+
   useEffect(() => {
     if (!articleFromState) {
       dispatch(fetchArticle(slug))
@@ -143,8 +144,11 @@ function ArticlePage() {
                             to="/articles"
                             onClick={() => {
                               dispatch(deleteArticle(slug));
-                              dispatch(fetchArticles({ page: 1 }));
-                              dispatch(resetCreateArticle());
+                              dispatch(setPage(1));
+                              setTimeout(() => {
+                                dispatch(fetchArticles({ page: 1 }));
+                                dispatch(resetCreateArticle());
+                              }, 100);
                             }}
                           >
                             Yes

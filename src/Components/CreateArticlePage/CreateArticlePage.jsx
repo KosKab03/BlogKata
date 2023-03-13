@@ -55,7 +55,6 @@ function CreateArticlePage({
     if (author) {
       dispatch(updArticle({ newData, slug }));
     } else {
-      console.log(slug);
       dispatch(postCreateArticle(newData));
     }
   };

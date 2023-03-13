@@ -5,6 +5,7 @@ export const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
   async ({ page, token = localStorage.getItem('token') }, { rejectWithValue }) => {
     try {
+      console.log('aga');
       page = !page ? 1 : page;
       const offset = page === 1 ? 0 : page * 20;
 
