@@ -6,7 +6,7 @@ export const fetchArticles = createAsyncThunk(
   async ({ page, token = localStorage.getItem('token') }, { rejectWithValue }) => {
     try {
       page = !page ? 1 : page;
-      const offset = page * 20;
+      const offset = page === 1 ? 0 : page * 20;
 
       const responce = await fetch(`https://blog.kata.academy/api/articles?limit=20&offset=${offset}`, {
         method: 'GET',
