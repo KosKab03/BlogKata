@@ -2,7 +2,6 @@ import styles from './LogInPage.module.scss';
 
 import { postLoginUser } from '../../Store/LogIn';
 import HOCAutorizated from '../HOCs/HOCAutorizated';
-import { setPage, fetchArticles } from '../../Store/ArticlesSlice';
 
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
@@ -26,13 +25,11 @@ function LogInPage({ type }) {
   }, [selectorData]);
 
   if (status.status === 'resolved') {
-    return <Navigate to="/" />;
+    return <Navigate to="/articles" />;
   }
 
   const onSubmit = (data) => {
     dispatch(postLoginUser(data));
-    dispatch(setPage(1));
-    dispatch(fetchArticles());
   };
 
   return (
