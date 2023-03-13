@@ -42,6 +42,7 @@ export const updArticle = createAsyncThunk(
             description,
             body: text,
             tagList,
+            updatedAt: Date.now(),
             token,
           },
         }),

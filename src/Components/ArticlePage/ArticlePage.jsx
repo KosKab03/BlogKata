@@ -1,8 +1,15 @@
 import styles from './ArticlePage.module.scss';
 
-import HOCCommonBlock from '../HOCs/HOCCommonBlock';
-import { fetchArticle, resetArticleView, fetchArticles, setLike, deleteLike, setPage } from '../../Store/ArticlesSlice';
-import { deleteArticle, resetCreateArticle } from '../../Store/CreateArticle';
+import HOCCommonBlock from '../../store/hoc/HOCCommonBlock';
+import {
+  fetchArticle,
+  resetArticleView,
+  fetchArticles,
+  setLike,
+  deleteLike,
+  setPage,
+} from '../../store/articles-slice';
+import { deleteArticle, resetCreateArticle } from '../../store/create-article';
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
@@ -20,7 +27,7 @@ const intialArticle = {
   slug: '',
   tagList: [],
   title: '',
-  updatedAt: '2023-03-11T11:57:16.032Z',
+  updatedAt: '',
 };
 
 function ArticlePage() {
@@ -35,7 +42,7 @@ function ArticlePage() {
   const { title, description, tagList, author, updatedAt, body } = article;
   const [likeCount, setLikeCount] = useState();
   const [like, toggleLike] = useState();
-  const date = format(new Date(updatedAt), 'MMM dd, uuuu');
+  const date = updatedAt && format(new Date(updatedAt), 'MMM dd, uuuu');
   const { username, image } = author;
 
   useEffect(() => {

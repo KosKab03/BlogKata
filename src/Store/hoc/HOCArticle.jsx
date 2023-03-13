@@ -1,7 +1,7 @@
 import styles from './HOCArticle.module.scss';
 
 import HOCCommonBlock from './HOCCommonBlock';
-import { fetchArticle, setLike, deleteLike } from '../../Store/ArticlesSlice';
+import { fetchArticle, setLike, deleteLike } from '../articles-slice';
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';

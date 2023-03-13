@@ -1,7 +1,7 @@
 import styles from './LogInPage.module.scss';
 
-import { postLoginUser } from '../../Store/LogIn';
-import HOCAutorizated from '../HOCs/HOCAutorizated';
+import { postLoginUser } from '../../store/log-in';
+import HOCAutorizated from '../../store/hoc/HOCAutorizated';
 
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';

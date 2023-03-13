@@ -1,7 +1,7 @@
 import styles from './EditProfilePage.module.scss';
 
-import HOCAutorizated from '../HOCs/HOCAutorizated';
-import { updUserData, getUserData } from '../../Store/LogIn';
+import HOCAutorizated from '../../store/hoc/HOCAutorizated';
+import { updUserData, getUserData } from '../../store/log-in';
 
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';

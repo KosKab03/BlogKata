@@ -11,7 +11,7 @@ import CreateArticlePage from '../CreateArticlePage';
 import EditArticle from '../EditArticle';
 import { Error, NotFound } from '../Alerts/Alerts';
 
-import { fetchArticles } from '../../Store/ArticlesSlice';
+import { fetchArticles } from '../../store/articles-slice';
 
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';

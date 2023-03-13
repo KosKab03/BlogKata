@@ -1,8 +1,8 @@
 import styles from './ArticleSheetPage.module.scss';
 
-import HOCArticle from '../HOCs/HOCArticle';
+import HOCArticle from '../../store/hoc/HOCArticle';
 
-import { fetchArticles, setPage } from '../../Store/ArticlesSlice';
+import { fetchArticles, setPage } from '../../store/articles-slice';
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';

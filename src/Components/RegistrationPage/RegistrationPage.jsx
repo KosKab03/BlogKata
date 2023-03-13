@@ -1,7 +1,7 @@
 import styles from './RegistrationPage.module.scss';
 
-import { postDataOnServer, resetData } from '../../Store/PostUserData';
-import HOCAutorizated from '../HOCs/HOCAutorizated';
+import { postDataOnServer, resetData } from '../../store/post-user-data';
+import HOCAutorizated from '../../store/hoc/HOCAutorizated';
 
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';

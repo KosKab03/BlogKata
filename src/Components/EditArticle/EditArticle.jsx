@@ -1,5 +1,5 @@
 import CreateArticlePage from '../CreateArticlePage';
-import { fetchArticle, resetArticleView } from '../../Store/ArticlesSlice';
+import { fetchArticle, resetArticleView } from '../../store/articles-slice';
 
 import React, { useState, useEffect } from 'react';
 

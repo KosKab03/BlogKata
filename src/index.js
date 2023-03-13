@@ -1,5 +1,5 @@
-import App from './Components/App';
-import Store from './Store';
+import App from './components/App';
+import Store from './store';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';

@@ -1,7 +1,7 @@
 import styles from './Header.module.scss';
 
-import { getUserData, clearData } from '../../Store/LogIn';
-import { fetchArticles, setPage } from '../../Store/ArticlesSlice';
+import { getUserData, clearData } from '../../store/log-in';
+import { fetchArticles, setPage } from '../../store/articles-slice';
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';

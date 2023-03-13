@@ -2,8 +2,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import styles from './CreateArticlePage.module.scss';
 
-import HOCCommonBlock from '../HOCs/HOCCommonBlock';
-import { postCreateArticle, updArticle, resetCreateArticle } from '../../Store/CreateArticle';
+import HOCCommonBlock from '../../store/hoc/HOCCommonBlock';
+import { postCreateArticle, updArticle, resetCreateArticle } from '../../store/create-article';
 
 import React from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';

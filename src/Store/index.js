@@ -1,7 +1,7 @@
-import articles from './ArticlesSlice';
-import postUserData from './PostUserData';
-import login from './LogIn';
-import createArticle from './CreateArticle';
+import articles from './articles-slice';
+import postUserData from './post-user-data';
+import login from './log-in';
+import createArticle from './create-article';
 import { configureStore } from '@reduxjs/toolkit';
 
 export default configureStore({
